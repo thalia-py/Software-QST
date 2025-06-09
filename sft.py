@@ -589,6 +589,7 @@ Q_usado = st.number_input("Valor de Q", min_value=0.0, value=st.session_state.ge
 S_usado = st.number_input("Valor de S", min_value=0.0, value=st.session_state.get('S_manual', 20.0), step=1.0)
 T_usado = st.number_input("Valor de T", min_value=0.0, value=st.session_state.get('T_manual', 30.0), step=1.0)
 
+import io
 if st.button("🚀 Iniciar Análise de Sensibilidade"):
     with st.spinner("⏳ Executando a análise de sensibilidade..."):
         parametros_base = {
@@ -607,7 +608,7 @@ if st.button("🚀 Iniciar Análise de Sensibilidade"):
         st.subheader("Resultados da Análise de Sensibilidade")
         st.dataframe(estatisticas)
 
-        # Exibir boxplots de Custo e MTBOF
+        # Exibir boxplots de Custo e MTBOF como imagem
         st.subheader("Boxplots da Taxa de Custo e MTBOF")
         fig, ax = plt.subplots(1, 2, figsize=(12, 5))
 
@@ -617,7 +618,10 @@ if st.button("🚀 Iniciar Análise de Sensibilidade"):
         ax[1].boxplot(df_resultados['MTBOF'], vert=False, patch_artist=True, boxprops=dict(facecolor='lightgreen'))
         ax[1].set_title('MTBOF')
 
-        st.pyplot(fig)
+        buf = io.BytesIO()
+        fig.savefig(buf, format="png")
+        buf.seek(0)
+        st.image(buf)
 
 # =============================================================================
 # Rodapé
