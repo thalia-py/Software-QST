@@ -584,9 +584,9 @@ for param in parametros_disponiveis:
         variacoes_parametros[param] = variacao
 
 # Valores ótimos da política pré-definida
-Q_usado = st.session_state['Q_opt']
-S_usado = st.session_state['S_opt']
-T_usado = st.session_state['T_opt']
+Q_usado = st.session_state['Q_manual']
+S_usado = st.session_state['S_manual']
+T_usado = st.session_state['T_manual']
 
 if st.button("🚀 Iniciar Análise de Sensibilidade"):
     with st.spinner("⏳ Executando a análise de sensibilidade..."):
