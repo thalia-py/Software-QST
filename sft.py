@@ -617,16 +617,26 @@ if st.button("🚀 Iniciar Análise de Sensibilidade"):
         media_custo = df_resultados['Custo'].mean()
         std_custo = df_resultados['Custo'].std()
         ax[0].set_title('Taxa de Custo')
-        ax[0].text(media_custo, 1.05, f"Média = {media_custo:.4f}\nDesvio = {std_custo:.4f}",
-                   fontsize=10, verticalalignment='bottom', color='blue')
+        ax[0].text(0.01, 1.25,
+                   f"Média = {media_custo:.4f}\nDesvio = {std_custo:.4f}",
+                   transform=ax[0].transAxes,
+                   fontsize=10,
+                   color='black',
+                   verticalalignment='top',
+                   horizontalalignment='left')
 
         # Boxplot do MTBOF
         ax[1].boxplot(df_resultados['MTBOF'], vert=False, patch_artist=True, boxprops=dict(facecolor='lightgreen'))
         media_mtbof = df_resultados['MTBOF'].mean()
         std_mtbof = df_resultados['MTBOF'].std()
         ax[1].set_title('MTBOF')
-        ax[1].text(media_mtbof, 1.05, f"Média = {media_mtbof:.4f}\nDesvio = {std_mtbof:.4f}",
-                   fontsize=10, verticalalignment='bottom', color='green')
+        ax[1].text(0.01, 1.25,
+                   f"Média = {media_mtbof:.4f}\nDesvio = {std_mtbof:.4f}",
+                   transform=ax[1].transAxes,
+                   fontsize=10,
+                   color='black',
+                   verticalalignment='top',
+                   horizontalalignment='left')
 
         fig.tight_layout()
         buf = io.BytesIO()
