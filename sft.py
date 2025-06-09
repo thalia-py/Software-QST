@@ -583,12 +583,10 @@ for param in parametros_disponiveis:
         variacao = st.slider(f"Nível de imprecisão para {param}", 1, 100, 10, 1) / 100 if incluir else 0
         variacoes_parametros[param] = variacao
 
-# Entrada manual dos valores de Q, S e T
-st.markdown("### Insira os valores de Q, S e T para a análise:")
-
-Q_usado = st.number_input("Valor de Q", min_value=0.0, value=st.session_state.get('Q_manual', 10.0), step=1.0)
-S_usado = st.number_input("Valor de S", min_value=0.0, value=st.session_state.get('S_manual', 20.0), step=1.0)
-T_usado = st.number_input("Valor de T", min_value=0.0, value=st.session_state.get('T_manual', 30.0), step=1.0)
+# Valores ótimos da política pré-definida
+Q_usado = st.session_state['Q_opt']
+S_usado = st.session_state['S_opt']
+T_usado = st.session_state['T_opt']
 
 if st.button("🚀 Iniciar Análise de Sensibilidade"):
     with st.spinner("⏳ Executando a análise de sensibilidade..."):
@@ -605,20 +603,20 @@ if st.button("🚀 Iniciar Análise de Sensibilidade"):
             parametros_alvo=parametros_disponiveis
         )
 
-        st.subheader("Resultados da Análise de Sensibilidade")
-        #st.dataframe(estatisticas)
+        # Renomear coluna se necessário
+        estatisticas.rename(columns={"Desvio Padrão": "Desvio-padrão", "Desvio": "Desvio-padrão"}, inplace=True)
 
-        
-        st.subheader("Boxplots da Taxa de Custo e MTBOF")
+        st.subheader("Box-plots dos Resultados")
+
         fig, ax = plt.subplots(1, 2, figsize=(12, 5))
 
         # Boxplot da Taxa de Custo
         ax[0].boxplot(df_resultados['Custo'], vert=False, patch_artist=True, boxprops=dict(facecolor='skyblue'))
         media_custo = df_resultados['Custo'].mean()
         std_custo = df_resultados['Custo'].std()
-        ax[0].set_title('Taxa de Custo')
+        ax[0].set_title('Box-plot para taxa de custo', loc='left', fontsize=12, color='black')
         ax[0].text(0.01, 1.25,
-                   f"Média = {media_custo:.4f}\nDesvio = {std_custo:.4f}",
+                   f"Média = {media_custo:.4f}\nDesvio-padrão = {std_custo:.4f}",
                    transform=ax[0].transAxes,
                    fontsize=10,
                    color='black',
@@ -629,9 +627,9 @@ if st.button("🚀 Iniciar Análise de Sensibilidade"):
         ax[1].boxplot(df_resultados['MTBOF'], vert=False, patch_artist=True, boxprops=dict(facecolor='lightgreen'))
         media_mtbof = df_resultados['MTBOF'].mean()
         std_mtbof = df_resultados['MTBOF'].std()
-        ax[1].set_title('MTBOF')
+        ax[1].set_title('Box-plot para tempo médio entre eventos de falha', loc='left', fontsize=12, color='black')
         ax[1].text(0.01, 1.25,
-                   f"Média = {media_mtbof:.4f}\nDesvio = {std_mtbof:.4f}",
+                   f"Média = {media_mtbof:.4f}\nDesvio-padrão = {std_mtbof:.4f}",
                    transform=ax[1].transAxes,
                    fontsize=10,
                    color='black',
