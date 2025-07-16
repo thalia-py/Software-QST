@@ -532,7 +532,7 @@ if st.button("📊 Avaliar política pré-definida"):
 # FUNÇÃO DA ANÁLISE DE SENSIBILIDADE (com MTBOF incluído)
 # =============================================================================
 
-def analise_sensibilidade(Q, S, T, parametros_base, n_simulacoes=1000, variacoes_parametros=None, parametros_alvo=None):
+def analise_sensibilidade(Q, S, T, parametros_base, n_simulacoes=n_simulacoes1, variacoes_parametros=None, parametros_alvo=None):
     if parametros_alvo is None:
         parametros_alvo = list(parametros_base.keys())
 
@@ -568,7 +568,7 @@ def analise_sensibilidade(Q, S, T, parametros_base, n_simulacoes=1000, variacoes
 # ANÁLISE DE SENSIBILIDADE - INTERFACE (com MTBOF incluído)
 # =============================================================================
 st.subheader("📉 Análise de Sensibilidade para política pré-definida.")
-n_simulacoes = st.number_input("Tamanho da amostra", min_value=100, max_value=500, value=100, step=100)
+n_simulacoes1 = st.number_input("Tamanho da amostra", min_value=100, max_value=500, value=100, step=100)
 
 # Seleção dos parâmetros a serem variáveis
 st.markdown("### Selecione os Parâmetros com imprecisão na estimativa (%)")
