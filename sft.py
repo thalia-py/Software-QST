@@ -594,6 +594,11 @@ if st.button("🚀 Iniciar Análise de Sensibilidade"):
             'lambd': lambd, 'Ci': Ci, 'Co': Co, 'Cp': Cp, 'Cf': Cf, 'Dp': Dp, 'Df': Df
         }
 
+        #GARANTIR DOWNTIME MÍNIMO
+        downtime_minimo = 1e-6
+        parametros_base['Dp'] = max(parametros_base['Dp'], downtime_minimo)
+        parametros_base['Df'] = max(parametros_base['Df'], downtime_minimo)
+
         df_resultados, estatisticas, parametros_iniciais, parametros_finais = analise_sensibilidade(
             Q_usado, S_usado, T_usado,
             parametros_base,
