@@ -531,8 +531,7 @@ if st.button("📊 Avaliar política pré-definida"):
 # =============================================================================
 # FUNÇÃO DA ANÁLISE DE SENSIBILIDADE (com MTBOF incluído)
 # =============================================================================
-
-def analise_sensibilidade(Q, S, T, parametros_base, n_simulacoes=n_simulacoes, variacoes_parametros=None, parametros_alvo=None):
+def analise_sensibilidade(Q, S, T, parametros_base, n_simulacoes, variacoes_parametros=None, parametros_alvo=None):
     if parametros_alvo is None:
         parametros_alvo = list(parametros_base.keys())
 
